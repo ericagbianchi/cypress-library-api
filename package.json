@@ -1,0 +1,110 @@
+{
+  "name": "cypress-cucumber-preprocessor",
+  "version": "0.0.0-development",
+  "description": "Run gherkin-syntaxed specs with cypress.io",
+  "main": "lib/index.js",
+  "scripts": {
+    "open": "cypress open",
+    "test": "cypress run --spec \"**/Test.feature\"",
+    "test:feature": "cypress-tags run --browser chrome",
+    "test:all": "cypress run --browser chrome --spec \"**/*.feature\" || exit 0",
+    "test:each": "cypress run --spec \"**/*.feature\"",
+    "test:debug": "jest --verbose false && DEBUG=cypress:* cypress open\n",
+    "fixStyle": "eslint . --fix",
+    "semantic-release": "semantic-release",
+    "chrome:report": "npm-run-all test:feature allure-report",
+    "allure-report": "npx allure generate allure-results --clean -o allure-report"
+  },
+  "bin": {
+    "cypress-tags": "cypress-tags.js"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "lint-staged && jest"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheBrainFamily/cypress-cucumber-preprocessor.git"
+  },
+  "keywords": [
+    "cucumber",
+    "gherkin",
+    "cypress",
+    "testing"
+  ],
+  "author": "Lukasz Gandecki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheBrainFamily/cypress-cucumber-preprocessor/issues"
+  },
+  "homepage": "https://github.com/TheBrainFamily/cypress-cucumber-preprocessor#readme",
+  "dependencies": {
+    "@cypress/browserify-preprocessor": "^2.1.1",
+    "@shelex/cypress-allure-plugin": "latest",
+    "chai": "^4.1.2",
+    "chokidar": "^2.0.4",
+    "cosmiconfig": "^4.0.0",
+    "cucumber": "^4.2.1",
+    "cucumber-expressions": "^6.0.1",
+    "cucumber-tag-expressions": "^1.1.1",
+    "cypress-cucumber-preprocessor": "^2.3.0",
+    "cypress-tags": "^0.0.17",
+    "debug": "^3.0.1",
+    "gherkin": "^5.1.0",
+    "glob": "^7.1.2",
+    "js-string-escape": "^1.0.1",
+    "minimist": "^1.2.5",
+    "mocha": "^7.1.1",
+    "mocha-allure-reporter": "^1.4.0",
+    "mysql": "^2.18.1",
+    "npm-run-all": "^4.1.5",
+    "through": "^2.3.8",
+    "typescript": "^4.1.3"
+  },
+  "devDependencies": {
+    "commitizen": "^4.0.4",
+    "cypress": "^3.8.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-cypress": "^2.0.1",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^1.1.1",
+    "jest": "^24.9.0",
+    "lint-staged": "^7.3.0",
+    "mochawesome": "^6.1.0",
+    "prettier": "^1.13.5",
+    "semantic-release": "^15.12.3"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/lib/testHelpers/setupTestFramework.js"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "<rootDir>/lib/*.test.js"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false
+  }
+}

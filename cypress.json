@@ -1,0 +1,13 @@
+{
+    "video": false,
+    "testFiles": "**/*.feature",
+    "reporter": "mocha-allure-reporter",
+    "integrationFolder": "cypress/integration/",
+    "reporterOptions": {
+        "reportDir": "target"
+    },
+    "response": null,
+    "id": null,
+    "name": null,
+    "language": null
+}
